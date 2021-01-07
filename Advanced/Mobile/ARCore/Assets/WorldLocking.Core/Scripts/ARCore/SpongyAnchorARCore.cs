@@ -54,6 +54,15 @@ namespace Microsoft.MixedReality.WorldLocking.Core
             {
                 lastNotLocatedTime = Time.unscaledTime;
             }
+            else 
+            {
+                Vector3 move = internalAnchor.transform.position - transform.position;
+                if (move.magnitude > 0.001f)
+                {
+                    Debug.Log($"{name} Moving by {move.ToString("F3")}");
+                }
+                transform.SetGlobalPose(internalAnchor.transform.GetGlobalPose());
+            }
         }
 
         // Start is called before the first frame update

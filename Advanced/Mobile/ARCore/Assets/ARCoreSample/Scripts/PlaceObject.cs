@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 using GoogleARCore;
+using Microsoft.MixedReality.WorldLocking.Core;
 
 namespace ARCoreTest
 {
@@ -86,10 +87,13 @@ namespace ARCoreTest
 
         private void HandleTap(Vector2 screenPos)
         {
+            if (prefabToPlace == null)
+            {
+                Debug.LogError($"{name} PlaceObject script has no prefab to place.");
+            }
             TrackableHit hit;
             bool foundHit = false;
-            foundHit = Frame.RaycastInstantPlacement(
-                screenPos.x, screenPos.y, 1.0f, out hit);
+            foundHit = Frame.RaycastInstantPlacement(screenPos.x, screenPos.y, 1.0f, out hit);
 
             if (!foundHit)
             {
@@ -97,10 +101,13 @@ namespace ARCoreTest
                 return;
             }
 
-            Debug.Log($"Placing {prefabToPlace.name} at {hit.Pose.position.ToString("F3")}");
-            // Instantiate prefab at the hit pose.
-            var gameObject = Instantiate(prefabToPlace, hit.Pose.position, hit.Pose.rotation);
+            var scale = new Vector3(prefabScale, prefabScale, prefabScale);
+            var frozenFromSpongy = WorldLockingManager.GetInstance().FrozenFromSpongy;
+            Pose frozenPose = frozenFromSpongy.Multiply(hit.Pose);
 
+            var frozenObject = Instantiate(prefabToPlace, frozenPose.position, frozenPose.rotation);
+            frozenObject.transform.localScale = scale;
+            Debug.Log($"Placing {prefabToPlace.name} at {frozenPose.position.ToString("F3")}");
         }
         #endregion // Handle input
     }

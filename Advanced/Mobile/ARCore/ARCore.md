@@ -5,7 +5,7 @@
 This sample codes directly to Google's ARCore SDK for Unity.
 
 ## Dependencies:
-* Built on WLT version 1.2.1.
+* Built on WLT version 1.2.2.
 * Incompatible with MRTK
 * Built on Unity v2019.4.15f.
 * Built on ARCore Unity SDK v1.22.0.
@@ -13,15 +13,21 @@ This sample codes directly to Google's ARCore SDK for Unity.
 
 ## Additional setup:
 
+The instructions here are trying to be brief. If anything is unclear, please refer to the full documentation for details.
+
+### Install Frozen World
+
+Install the Frozen World Engine DLL, as described in the [WLT Initial Setup documentation](https://microsoft.github.io/MixedReality-WorldLockingTools-Unity/DocGen/Documentation/HowTos/InitialSetup.html#frozenworld-engine-installation).
+
+### ARCore and its dependencies
+
 Building the sample requires installing Google's ARCore Unity SDK v1.22.0 or later, including dependencies.
 
 These notes are intended to be helpful in setting up ARCore Unity SDK, but are no substitute for the official full documentation, which can be found at the following:
 
 > https://developers.google.com/ar/develop/unity/quickstart-android
 
-The instructions here are trying to be brief. If anything is unclear, please refer to the full documentation for details.
-
-### Installing dependencies
+### Installing ARCore dependencies
 
 From Unity Package Manager, install:
 
@@ -48,7 +54,10 @@ Import arcore-1.22.0-asmdef-fixup.unitypackage into your project. This unity pac
 
 Ensure your build target is Android.
 
-In your project's Player Settings, in the XR section at the end, ensure that "ARCore Supported" is enabled.
+In your project's **Player Settings**, in the **XR** section at the end, ensure that "ARCore Supported" is enabled.
+
+> [!NOTE] 
+> If you hit a build error about manifest-merger failed, then follow the appropriate instructions here: https://developers.google.com/ar/develop/unity/android-11-build
 
 ## Adding WLT ARCore support to an existing project
 
